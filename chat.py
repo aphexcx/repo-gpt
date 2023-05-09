@@ -1,26 +1,13 @@
-import openai
-import streamlit as st
-from streamlit_chat import message
-from dotenv import load_dotenv
 import os
-from langchain.embeddings.openai import OpenAIEmbeddings
+
 import openai
-from langchain.document_loaders import UnstructuredMarkdownLoader
-from langchain.chains.question_answering import load_qa_chain
-from langchain.chat_models import ChatOpenAI
-from langchain.document_loaders import UnstructuredPDFLoader
-from langchain.vectorstores import DeepLake
-from langchain.text_splitter import NLTKTextSplitter
-from langchain.chat_models import ChatOpenAI
-from langchain.docstore.document import Document
-from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
-from langchain.chains import RetrievalQA
 import streamlit as st
-from langchain.document_loaders.csv_loader import CSVLoader
-from tempfile import NamedTemporaryFile
-import tempfile
-from langchain.agents import create_csv_agent
+from dotenv import load_dotenv
+from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import DeepLake
+from streamlit_chat import message
 
 # Load environment variables from a .env file (containing OPENAI_API_KEY)
 load_dotenv()
