@@ -41,7 +41,7 @@ db = DeepLake(dataset_path=active_loop_data_set_path,
 def generate_response(prompt):
     # Generate a response using OpenAI's ChatCompletion API and the specified prompt
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-32k",
         messages=[
             {"role": "user", "content": prompt}
         ])
@@ -64,7 +64,7 @@ def search_db(query):
     retriever.search_kwargs['maximal_marginal_relevance'] = True
     retriever.search_kwargs['k'] = 10
     # Create a ChatOpenAI model instance
-    model = ChatOpenAI(model='gpt-3.5-turbo')
+    model = ChatOpenAI(model='gpt-4-32k')
     # Create a RetrievalQA instance from the model and retriever
     qa = RetrievalQA.from_llm(model, retriever=retriever)
     # Return the result of the query
@@ -90,6 +90,6 @@ if user_input:
 # If there are generated responses, display the conversation using Streamlit messages
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])):
-        message(st.session_state['past'][i],
-                is_user=True, key=str(i) + '_user')
-        message(st.session_state["generated"][i], key=str(i))
+        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+        # Wrap the bot response with markdown
+        st.markdown(st.session_state["generated"][i])
