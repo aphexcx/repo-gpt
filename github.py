@@ -34,7 +34,7 @@ def split_docs(docs):
 
 
 def main(repo_url, root_dir, deep_lake_path):
-    clone_repository(repo_url, root_dir)
+#     clone_repository(repo_url, root_dir)
     docs = load_docs(root_dir)
     texts = split_docs(docs)
     embeddings = OpenAIEmbeddings()
@@ -46,7 +46,7 @@ def main(repo_url, root_dir, deep_lake_path):
 
 if __name__ == "__main__":
     repo_url = os.environ.get('REPO_URL')
-    root_dir = "./gumroad"
+    root_dir = "/Users/afik_cohen/repos/ppl-ai/clean-android/"
     deep_lake_path = os.environ.get('DEEPLAKE_DATASET_PATH')
 
     main(repo_url, root_dir, deep_lake_path)
