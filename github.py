@@ -32,7 +32,11 @@ def load_docs(root_dir):
             if not is_binary(file_path):
                 try:
                     loader = TextLoader(file_path, encoding='utf-8')
-                    docs.extend(loader.load_and_split())
+                    doc_chunks = loader.load_and_split()
+                    # Prepend the filename to the first chunk
+                    if doc_chunks:
+                        doc_chunks[0].page_content = f"// {file}\n{doc_chunks[0].page_content}"
+                    docs.extend(doc_chunks)
                 except Exception as e:
                     logging.error(f"Error loading file {file}: {str(e)}")
     return docs
@@ -46,8 +50,10 @@ def split_docs(docs):
 def main(repo_url, root_dir, deep_lake_path):
     docs = load_docs(root_dir)
     texts = split_docs(docs)
+    # texts = docs
     embeddings = OpenAIEmbeddings()
     db = DeepLake(dataset_path=deep_lake_path, embedding_function=embeddings)
+    # db.delete(delete_all=True)
     db.add_documents(texts)
 
 
